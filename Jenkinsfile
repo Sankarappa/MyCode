@@ -2,8 +2,7 @@ node('master')
 {
    stage('ContinuousDownload')
    {      
-     git https://github.com/Sankarappa/MyCode.git
-        
+     git 'https://github.com/Sankarappa/MyCode.git'    
    }
    stage('ContinuousBuild')
    {
@@ -11,20 +10,17 @@ node('master')
    }
    stage('ContinuousDeployment')
    {
-       sh label: '', script: 'scp /home/ubuntu/.jenkins/workspace/ScriptedPipeline/webapp/target/webapp.war ubuntu@172.31.28.142:/var/lib/tomcat8/webapps/testapp.war'
-       
+       sh label: '', script: 'scp /home/ubuntu/.jenkins/workspace/ScriptedPipeline/webapp/target/webapp.war ubuntu@172.31.28.142:/var/lib/tomcat8/webapps/testapp.war'       
    }
    stage('ContinuousTesting')
    {
        git 'https://github.com/intelliqittrainings/FunctionalTesting.git'
-       sh label: '', script: 'java -jar /home/ubuntu/.jenkins/workspace/ScriptedPipeline/testing.jar'
-       
+       sh label: '', script: 'java -jar /home/ubuntu/.jenkins/workspace/ScriptedPipeline/testing.jar'       
    }
    stage('ContinuousDelivery')
    {
        input message: 'Waiting for Approval from the DM!', submitter: 'srinivas'
        sh label: '', script: 'scp /home/ubuntu/.jenkins/workspace/ScriptedPipeline/webapp/target/webapp.war ubuntu@172.31.17.191:/var/lib/tomcat8/webapps/prodapp.war'
-   }
-   
+   }   
    
 }
