@@ -3,6 +3,7 @@ node('master')
    stage('ContinuousDownload')
    {      
      git https://github.com/Sankarappa/MyCode.git
+        
    }
    stage('ContinuousBuild')
    {
